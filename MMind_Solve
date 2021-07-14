@@ -1,0 +1,60 @@
+import numpy as np
+import random
+import itertools 
+
+answr = ['Lion','Hippo','Empty']
+char = ['Lion','Hippo','Bear','Monkey','Elephant','Tiger','Empty']
+
+posbl_answrs = list(itertools.permutations(char,3))
+
+trial = ['Stupid','Stupid','Stupid']
+
+while (trial != answr):
+
+    idx = random.randint(0,len(posbl_answrs)-1)
+    trial = posbl_answrs[idx]
+    print(trial,answr)
+
+    nbred = 0
+    for i in range(3):
+        if (trial[i] == answr[i]):
+            nbred += 1
+    print('No of red dogs:',nbred)
+
+    nbwhite = 0
+    for i in range(3):
+        for j in range(3):
+            if (trial[i] == answr[j] and i != j):
+                nbwhite += 1
+    print('No of white dogs:',nbwhite)
+
+    auxil = []
+
+    for k in range(len(posbl_answrs)):
+        #print(k)
+        #print(len(posbl_answrs))
+        nbsubred = 0
+        for i in range(3):
+            if (trial[i] == posbl_answrs[k][i]):
+                nbsubred += 1
+
+        #print('No of red dogs:',nbsubred)
+
+        nbsubwhite = 0
+        for i in range(3):
+            for j in range(3):
+                if (trial[i] == posbl_answrs[k][j] and i != j):
+                    nbsubwhite += 1
+        #print('No of white dogs:',nbsubwhite)
+
+        if (nbsubred == nbred and nbsubwhite == nbwhite):
+            auxil.append(posbl_answrs[k])
+
+    posbl_answrs = auxil
+    #posbl_answrs_lst = list(posbl_answrs)
+    trial = list(trial)
+
+    #print(posbl_answrs_lst)   
+    print('Possible answers:',len(posbl_answrs))
+
+print("Congratulations!")
